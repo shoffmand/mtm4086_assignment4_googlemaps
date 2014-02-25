@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Custom Marker and InfoWindow</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script>
+var map;
+function initialize() {
+	var lati = new google.maps.LatLng(35.6584245,139.7454663);
+  var mapOptions = {
+    zoom: 18,
+	mapTypeId: google.maps.MapTypeId.SATELLITE,
+    center: lati,
+    tilt: 45
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+	  var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">Tokyo Tower</h1>'+
+      '<div id="bodyContent">'+
+      '<p>I chose Tokyo Tower because I think it is an interesting landmark that I would like to see one day. I painted a picture of it when I was younger, although I did not make it very realistic.</p>'+
+     
+      '</div>'+
+      '</div>';
+
+  var infowindow = new google.maps.InfoWindow({
+      content: contentString
+  });
+
+  var marker = new google.maps.Marker({
+      position: lati,
+      map: map,
+      title: 'Uluru (Ayers Rock)'
+  });
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.open(map,marker);
+  });
+}
+ 
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+  </body>
+</html>
